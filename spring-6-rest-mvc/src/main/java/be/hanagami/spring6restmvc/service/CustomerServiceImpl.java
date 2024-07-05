@@ -9,10 +9,10 @@ import java.util.*;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-    Map<UUID, Customer> customerMap;
+    private Map<UUID, Customer> customerMap;
 
     CustomerServiceImpl(){
-        this.customerMap = new HashMap<>();
+        customerMap = new HashMap<>();
 
         Customer customer1 = Customer.builder()
                 .id(UUID.randomUUID())
@@ -44,7 +44,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> listCustomers() {
+    public List<Customer> getAllCustomers() {
         return new ArrayList<>(customerMap.values());
     }
 
@@ -52,4 +52,21 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer getCustomerById(UUID uuid) {
         return customerMap.get(uuid);
     }
+
+    @Override
+    public Customer saveNewCustomer(Customer customer) {
+
+        Customer savedCustomer = Customer.builder()
+                .id(UUID.randomUUID())
+                .name(customer.getName())
+                .version(1)
+                .createdDate(LocalDateTime.now())
+                .lastModifiedDate(LocalDateTime.now())
+                .build();
+
+        customerMap.put(savedCustomer.getId(), savedCustomer);
+
+        return savedCustomer;
+    }
+
 }
