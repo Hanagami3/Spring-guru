@@ -12,7 +12,7 @@ public class CustomerServiceImpl implements CustomerService {
     private Map<UUID, Customer> customerMap;
 
     CustomerServiceImpl(){
-        customerMap = new HashMap<>();
+        this.customerMap = new HashMap<>();
 
         Customer customer1 = Customer.builder()
                 .id(UUID.randomUUID())
@@ -67,6 +67,21 @@ public class CustomerServiceImpl implements CustomerService {
         customerMap.put(savedCustomer.getId(), savedCustomer);
 
         return savedCustomer;
+    }
+
+    @Override
+    public void updateCostumerById(UUID customerId, Customer customer) {
+
+        Customer existingCustomer = customerMap.get(customerId);
+        existingCustomer.setName(customer.getName());
+
+        //customerMap.put(existingCustomer.getId(), existingCustomer);
+
+    }
+
+    @Override
+    public void deleteCustomerById(UUID customerId) {
+        customerMap.remove(customerId);
     }
 
 }
