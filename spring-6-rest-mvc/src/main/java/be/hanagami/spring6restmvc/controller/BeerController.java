@@ -21,6 +21,8 @@ public class BeerController {
 
     private final BeerService beerService;
 
+    //a patch operation allows you to update specific properties,
+    // while an update operation will update all properties
     @PatchMapping("{beerId}")
     public ResponseEntity updateBeerPatchById(@PathVariable("beerId") UUID beerId,
                                               @RequestBody Beer beer) {
