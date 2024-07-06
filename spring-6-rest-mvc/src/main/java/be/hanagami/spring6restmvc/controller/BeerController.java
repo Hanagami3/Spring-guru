@@ -2,7 +2,7 @@ package be.hanagami.spring6restmvc.controller;
 
 import be.hanagami.spring6restmvc.model.Beer;
 import be.hanagami.spring6restmvc.service.BeerService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 //Postman ou main menu Intellij => tool => HTTP client => create request in HTTP Client
 @RestController
 @RequestMapping("/api/v1/beer")
@@ -69,7 +69,7 @@ public class BeerController {
     @RequestMapping(value = "/{beerId}", method = RequestMethod.GET)
     public Beer getBeerById(@PathVariable("beerId") UUID beerId) {
 
-        log.debug("Get Beer by id - in controller ");
+         log.debug("Get Beer by id - in controller ");
 
         return beerService.getBeerById(beerId);
     }
