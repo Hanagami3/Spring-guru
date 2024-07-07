@@ -12,7 +12,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     private Map<UUID, Customer> customerMap;
 
-    CustomerServiceImpl(){
+    public CustomerServiceImpl(){
         this.customerMap = new HashMap<>();
 
         Customer customer1 = Customer.builder()
