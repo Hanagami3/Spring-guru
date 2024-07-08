@@ -1,21 +1,22 @@
 package be.hanagami.spring6restmvc.service;
 
-import be.hanagami.spring6restmvc.model.Customer;
+import be.hanagami.spring6restmvc.model.CustomerDTO;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface CustomerService {
 
-    List<Customer> getAllCustomers();
+    List<CustomerDTO> getAllCustomers();
 
-    Customer getCustomerById(UUID uuid);
+    Optional<CustomerDTO> getCustomerById(UUID uuid);
 
-    Customer saveNewCustomer(Customer customer);
+    CustomerDTO saveNewCustomer(CustomerDTO customer);
 
-    void updateCostumerById(UUID customerId, Customer customer);
+    void updateCostumerById(UUID customerId, CustomerDTO customer);
 
     void deleteCustomerById(UUID customerId);
 
-    void patchCostumerById(UUID customerId, Customer customer);
+    void patchCostumerById(UUID customerId, CustomerDTO customer);
 }

@@ -12,7 +12,7 @@ import java.util.UUID;
 @Builder
 //aller dans refractor puis delombok et cela va gérérer tout le code dans la classe
 @Data
-public class Beer {
+public class BeerDTO {
     private UUID id;
     private Integer version;
     private String beerName;

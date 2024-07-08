@@ -1,6 +1,6 @@
 package be.hanagami.spring6restmvc.controller;
 
-import be.hanagami.spring6restmvc.model.Customer;
+import be.hanagami.spring6restmvc.model.CustomerDTO;
 import be.hanagami.spring6restmvc.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -13,27 +13,29 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/customer")
 public class CustomerController {
+
+    public static final String CUSTOMER_PATH = "/api/v1/customer";
+    public static final String CUSTOMER_PATH_ID = CUSTOMER_PATH + "/{customerId}";
 
     final private CustomerService customerService;
 
-    @RequestMapping (method = RequestMethod.GET)
-    public List<Customer> listAllCustomers() {
+    @GetMapping (CUSTOMER_PATH)
+    public List<CustomerDTO> listAllCustomers() {
         return customerService.getAllCustomers();
     }
 
     //de '/' is niet nodig, doet spring het voor ons
-    @RequestMapping("/{customerId}")
-    public Customer getCustomerById(@PathVariable("customerId")UUID customerId){
-        return customerService.getCustomerById(customerId);
+    @GetMapping(CUSTOMER_PATH_ID)
+    public CustomerDTO getCustomerById(@PathVariable("customerId")UUID customerId){
+        return customerService.getCustomerById(customerId).orElseThrow(NotFoundException::new);
     }
 
-    @PostMapping
+    @PostMapping(CUSTOMER_PATH)
     //Parse the JSON body into a customer object
-    public ResponseEntity handlePost (@RequestBody Customer customer){
+    public ResponseEntity handlePost (@RequestBody CustomerDTO customer){
 
-        Customer savedCustomer = customerService.saveNewCustomer(customer);
+        CustomerDTO savedCustomer = customerService.saveNewCustomer(customer);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "/api/v1/customer/" + savedCustomer.getId().toString());
@@ -41,16 +43,16 @@ public class CustomerController {
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 
-    @PutMapping("{customerId}")
+    @PutMapping(CUSTOMER_PATH_ID)
     public ResponseEntity UpdateById(@PathVariable("customerId")UUID customerId,
-                                     @RequestBody Customer customer){
+                                     @RequestBody CustomerDTO customer){
 
         customerService.updateCostumerById(customerId, customer);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping("{customerId}")
+    @DeleteMapping(CUSTOMER_PATH_ID)
     public ResponseEntity deleteById(@PathVariable("customerId")UUID customerId){
 
         customerService.deleteCustomerById(customerId);
@@ -58,9 +60,9 @@ public class CustomerController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @PatchMapping("{idCustomer}")
-    public ResponseEntity updateCustomerPatchById(@PathVariable("idCustomer") UUID customerId,
-                                   @RequestBody Customer customer){
+    @PatchMapping(CUSTOMER_PATH_ID)
+    public ResponseEntity updateCustomerPatchById(@PathVariable("customerId") UUID customerId,
+                                   @RequestBody CustomerDTO customer){
 
         customerService.patchCostumerById(customerId, customer);
 
