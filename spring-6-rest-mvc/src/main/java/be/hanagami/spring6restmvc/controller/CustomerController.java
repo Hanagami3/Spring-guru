@@ -25,6 +25,7 @@ public class CustomerController {
         return customerService.getAllCustomers();
     }
 
+
     //de '/' is niet nodig, doet spring het voor ons
     @GetMapping(CUSTOMER_PATH_ID)
     public CustomerDTO getCustomerById(@PathVariable("customerId")UUID customerId){
