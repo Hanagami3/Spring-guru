@@ -12,37 +12,37 @@ public class CustomerServiceImpl implements CustomerService {
 
     private Map<UUID, CustomerDTO> customerMap;
 
-//    public CustomerServiceImpl(){
-//        this.customerMap = new HashMap<>();
-//
-//        CustomerDTO customer1 = CustomerDTO.builder()
-//                .id(UUID.randomUUID())
-//                .name("customer1")
-//                .version(1)
-//                .createdDate(LocalDateTime.now())
-//                .lastModifiedDate(LocalDateTime.now())
-//                .build();
-//
-//        CustomerDTO customer2 = CustomerDTO.builder()
-//                .id(UUID.randomUUID())
-//                .name("customer2")
-//                .version(1)
-//                .createdDate(LocalDateTime.now())
-//                .lastModifiedDate(LocalDateTime.now())
-//                .build();
-//
-//        CustomerDTO customer3 = CustomerDTO.builder()
-//                .id(UUID.randomUUID())
-//                .name("customer3")
-//                .version(1)
-//                .createdDate(LocalDateTime.now())
-//                .lastModifiedDate(LocalDateTime.now())
-//                .build();
-//
-//        customerMap.put(customer1.getId(), customer1);
-//        customerMap.put(customer2.getId(), customer2);
-//        customerMap.put(customer3.getId(), customer3);
-//    }
+    public CustomerServiceImpl(){
+        this.customerMap = new HashMap<>();
+
+        CustomerDTO customer1 = CustomerDTO.builder()
+                .id(UUID.randomUUID())
+                .name("customer1")
+                .version(1)
+                .createdDate(LocalDateTime.now())
+                .lastModifiedDate(LocalDateTime.now())
+                .build();
+
+        CustomerDTO customer2 = CustomerDTO.builder()
+                .id(UUID.randomUUID())
+                .name("customer2")
+                .version(1)
+                .createdDate(LocalDateTime.now())
+                .lastModifiedDate(LocalDateTime.now())
+                .build();
+
+        CustomerDTO customer3 = CustomerDTO.builder()
+                .id(UUID.randomUUID())
+                .name("customer3")
+                .version(1)
+                .createdDate(LocalDateTime.now())
+                .lastModifiedDate(LocalDateTime.now())
+                .build();
+
+        customerMap.put(customer1.getId(), customer1);
+        customerMap.put(customer2.getId(), customer2);
+        customerMap.put(customer3.getId(), customer3);
+    }
 
     @Override
     public List<CustomerDTO> getAllCustomers() {
@@ -71,18 +71,21 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void updateCostumerById(UUID customerId, CustomerDTO customer) {
+    public Optional<CustomerDTO> updateCostumerById(UUID customerId, CustomerDTO customer) {
 
         CustomerDTO existingCustomer = customerMap.get(customerId);
         existingCustomer.setName(customer.getName());
 
         //customerMap.put(existingCustomer.getId(), existingCustomer);
 
+        return Optional.of(existingCustomer);
     }
 
     @Override
-    public void deleteCustomerById(UUID customerId) {
+    public Boolean deleteCustomerById(UUID customerId) {
         customerMap.remove(customerId);
+
+        return true;
     }
 
     @Override
