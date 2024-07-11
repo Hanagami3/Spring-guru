@@ -42,6 +42,8 @@ public class Beer {
     private String beerName;
 
     @NotNull
+    //pas nécessaire mais les nouvelle version hibernate demande un smallint donc pour être sur avec la migration
+    //@JdbcTypeCode(value = SqlTypes.SMALLINT)
     private BeerStyle beerStyle;
 
     @NotNull

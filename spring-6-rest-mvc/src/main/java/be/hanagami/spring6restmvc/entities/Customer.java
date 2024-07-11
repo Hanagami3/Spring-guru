@@ -31,6 +31,10 @@ public class Customer {
     private UUID id;
     private String name;
 
+    //en gris car c'est la valeur par défault donc on ne spécifie rien
+    @Column(length = 255)
+    private String email;
+
     @Version
     private Integer  version;
     private LocalDateTime createdDate;
