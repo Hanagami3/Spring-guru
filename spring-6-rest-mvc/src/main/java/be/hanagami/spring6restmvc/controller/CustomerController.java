@@ -69,9 +69,11 @@ public class CustomerController {
     public ResponseEntity updateCustomerPatchById(@PathVariable("customerId") UUID customerId,
                                    @RequestBody CustomerDTO customer){
 
-        customerService.patchCostumerById(customerId, customer);
+        if (customerService.patchCostumerById(customerId, customer).isEmpty()){
+            throw new NotFoundException();
+        };
 
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
 }

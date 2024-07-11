@@ -126,4 +126,20 @@ class CustomerControllerIT {
             customerController.deleteById(UUID.randomUUID());
         });
     }
+
+    @Transactional
+    @Rollback
+    @Test
+    void patchExistingCustomerTest(){
+        Customer customer = customerRepository.findAll().get(0);
+        CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
+        final String customerName = "Updated Name";
+        customerDTO.setName(customerName);
+
+        ResponseEntity responseEntity = customerController.updateCustomerPatchById(customer.getId(), customerDTO);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(204));
+
+        Customer updateCustomer = customerRepository.findById(customer.getId()).get();
+        assertThat(updateCustomer.getName()).isEqualTo(customerName);
+    }
 }
