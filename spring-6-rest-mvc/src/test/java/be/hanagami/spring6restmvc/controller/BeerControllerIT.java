@@ -178,7 +178,7 @@ class BeerControllerIT {
     void testListBeer() {
         List<BeerDTO> dtos = beerController.listBeer();
 
-        assertThat(dtos.size()).isEqualTo(3);
+        assertThat(dtos.size()).isEqualTo(2413);
     }
 
     //Si on run les deux test en même temps, le deuxième ne passe pas car pas de rollback automatiquement
