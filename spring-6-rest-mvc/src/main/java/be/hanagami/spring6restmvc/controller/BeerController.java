@@ -1,6 +1,7 @@
 package be.hanagami.spring6restmvc.controller;
 
 import be.hanagami.spring6restmvc.model.BeerDTO;
+import be.hanagami.spring6restmvc.model.BeerStyle;
 import be.hanagami.spring6restmvc.service.BeerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -74,8 +75,10 @@ public class BeerController {
 
     //@RequestMapping(method = RequestMethod.GET, value = BEER_PATH)
     @GetMapping(BEER_PATH)
-    public List<BeerDTO> listBeer(){
-        return beerService.listBeers();
+    public List<BeerDTO> listBeer(@RequestParam(required = false)/*("beerName")*/ String beerName,
+                                  @RequestParam(required = false) BeerStyle beerStyle,
+                                  @RequestParam(required = false) Boolean showInventory){
+        return beerService.listBeers(beerName, beerStyle, showInventory);
     }
 
 //    @ExceptionHandler(NotFoundException.class)
